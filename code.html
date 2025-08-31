@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Special Greeting Card</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            color: #333;
+        }
+
+        .container {
+            max-width: 800px;
+            width: 100%;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+            overflow: hidden;
+        }
+
+        .card {
+            padding: 40px;
+            position: relative;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .header h1 {
+            color: #667eea;
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            font-weight: 300;
+        }
+
+        .card-image {
+            width: 100%;
+            height: 300px;
+            margin: 20px 0;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+        }
+
+        .card-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .card-image img:hover {
+            transform: scale(1.05);
+        }
+
+        .message-container {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            padding: 30px;
+            border-radius: 15px;
+            margin: 25px 0;
+            border-left: 5px solid #667eea;
+        }
+
+        .message {
+            font-size: 1.2em;
+            line-height: 1.6;
+            text-align: center;
+            color: #495057;
+            margin-bottom: 20px;
+        }
+
+        .buttons {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin: 30px 0;
+        }
+
+        .btn {
+            padding: 15px 25px;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.1em;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .btn-secondary {
+            background: #f8f9fa;
+            color: #495057;
+            border: 2px solid #dee2e6;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .btn:active {
+            transform: translateY(0);
+        }
+
+        .hidden-message {
+            display: none;
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+            text-align: center;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .birthday-message {
+            background: linear-gradient(135deg, #ff6b6b 0%, #feca57 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+            margin-top: 30px;
+            display: none;
+            animation: slideUp 0.5s ease;
+        }
+
+        .birthday-message h2 {
+            font-size: 2em;
+            margin-bottom: 15px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .confetti {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1000;
+            display: none;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideUp {
+            from { 
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to { 
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 30px;
+            color: #6c757d;
+            font-size: 0.9em;
+        }
+
+        @media (max-width: 768px) {
+            .card {
+                padding: 20px;
+            }
+            .header h1 {
+                font-size: 2em;
+            }
+            .message {
+                font-size: 1.1em;
+            }
+            .buttons {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="card">
+            <div class="header">
+                <h1>A Special Message For You</h1>
+                <p>Click the buttons below to reveal heartfelt messages</p>
+            </div>
+
+            <div class="card-image">
+                <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/d4c56f59-1e2b-41d4-8194-4632f8f4495c.png" alt="Peaceful landscape with warm sunset colors and gentle light rays breaking through clouds over a calm lake with distant mountains" />
+            </div>
+
+            <div class="message-container">
+                <div class="message" id="mainMessage">
+                    Sometimes words are not enough to express how sorry I am. Please accept this heartfelt apology.
+                </div>
+            </div>
+
+            <div class="buttons">
+                <button class="btn btn-primary" onclick="showApology()">
+                    <i class="fas fa-heart"></i> Accept Apology
+                </button>
+                <button class="btn btn-secondary" onclick="showBirthday()">
+                    <i class="fas fa-birthday-cake"></i> Birthday Wish
+                </button>
+                <button class="btn btn-secondary" onclick="showSecretMessage()">
+                    <i class="fas fa-star"></i> Surprise Message
+                </button>
+            </div>
+
+            <div class="hidden-message" id="apologyMessage">
+                <h3>Thank you for accepting my apology! 💖</h3>
+                <p>I truly value our relationship and promise to do better. Your forgiveness means everything to me.</p>
+            </div>
+
+            <div class="birthday-message" id="birthdayMessage">
+                <h2>Happy Belated Birthday! 🎉</h2>
+                <p>May your special day be filled with joy, laughter, and wonderful memories. Wishing you all the happiness in the world!</p>
+                <p>Even though it's belated, my wishes come from the heart! ❤️</p>
+            </div>
+
+            <div class="hidden-message" id="secretMessage">
+                <h3>You're Amazing! ✨</h3>
+                <p>Just wanted to remind you how special you are. Your kindness and warmth make the world a better place.</p>
+                <p>Thank you for being you! 🌟</p>
+            </div>
+
+            <div class="footer">
+                <p>Made with ❤️ | Refresh the page to start over</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="confetti" id="confetti"></div>
+
+    <script>
+        function showApology() {
+            const message = document.getElementById('apologyMessage');
+            message.style.display = 'block';
+            
+            // Hide other messages
+            document.getElementById('birthdayMessage').style.display = 'none';
+            document.getElementById('secretMessage').style.display = 'none';
+            
+            // Update main message
+            document.getElementById('mainMessage').textContent = 
+                "Your forgiveness means the world to me. Thank you for your understanding and kindness.";
+        }
+
+        function showBirthday() {
+            const birthday = document.getElementById('birthdayMessage');
+            birthday.style.display = 'block';
+            
+            // Hide other messages
+            document.getElementById('apologyMessage').style.display = 'none';
+            document.getElementById('secretMessage').style.display = 'none';
+            
+            // Update main message
+            document.getElementById('mainMessage').textContent = 
+                "Wishing you a wonderful year ahead filled with happiness and success!";
+            
+            // Show confetti
+            createConfetti();
+        }
+
+        function showSecretMessage() {
+            const secret = document.getElementById('secretMessage');
+            secret.style.display = 'block';
+            
+            // Hide other messages
+            document.getElementById('apologyMessage').style.display = 'none';
+            document.getElementById('birthdayMessage').style.display = 'none';
+            
+            // Update main message
+            document.getElementById('mainMessage').textContent = 
+                "Life is better with you in it. Thank you for being an amazing person!";
+        }
+
+        function createConfetti() {
+            const confetti = document.getElementById('confetti');
+            confetti.style.display = 'block';
+            confetti.innerHTML = '';
+            
+            const colors = ['#ff6b6b', '#feca57', '#48dbfb', '#1dd1a1', '#f368e0', '#ff9ff3'];
+            const confettiCount = 150;
+            
+            for (let i = 0; i < confettiCount; i++) {
+                const confettiPiece = document.createElement('div');
+                confettiPiece.style.position = 'absolute';
+                confettiPiece.style.width = '10px';
+                confettiPiece.style.height = '10px';
+                confettiPiece.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                confettiPiece.style.borderRadius = '50%';
+                confettiPiece.style.left = Math.random() * 100 + 'vw';
+                confettiPiece.style.animation = `fall ${1 + Math.random() * 5}s linear forwards`;
+                
+                // Add falling animation
+                const style = document.createElement('style');
+                style.textContent = `
+                    @keyframes fall {
+                        0% {
+                            transform: translateY(-20px) rotate(0deg);
+                            opacity: 1;
+                        }
+                        100% {
+                            transform: translateY(100vh) rotate(360deg);
+                            opacity: 0;
+                        }
+                    }
+                `;
+                document.head.appendChild(style);
+                
+                confetti.appendChild(confettiPiece);
+                
+                // Remove confetti after animation
+                setTimeout(() => {
+                    confettiPiece.remove();
+                }, 6000);
+            }
+            
+            // Hide confetti after 5 seconds
+            setTimeout(() => {
+                confetti.style.display = 'none';
+            }, 5000);
+        }
+
+        // Add some interactive hover effects
+        document.addEventListener('DOMContentLoaded', function() {
+            const messages = document.querySelectorAll('.message, .hidden-message, .birthday-message');
+            messages.forEach(msg => {
+                msg.addEventListener('mouseenter', function() {
+                    this.style.transform = 'scale(1.02)';
+                    this.style.transition = 'transform 0.2s ease';
+                });
+                msg.addEventListener('mouseleave', function() {
+                    this.style.transform = 'scale(1)';
+                });
+            });
+        });
+    </script>
+</body>
+</html>
+
